@@ -5275,14 +5275,81 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var id = 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {},
   methods: {
-    updateUser: function updateUser() {
-      window.print();
+    addRow: function addRow() {
+      id = id + 1;
+      var trow = '<tr id="row' + id + '">';
+      trow += '<td><input class="form-control" type="text" name="pname[]" id="name' + id + '" placeholder="Product Name"></td>';
+      trow += '<td><input class="form-control" type="number" name="quantity[]" id="quantity' + id + '" placeholder="Quantity"></td>';
+      trow += '<td><input class="form-control" type="number" name="price[]" id="price' + id + '" placeholder="Product Price"></td>'; // trow+='<td class="text-center"><button type="button" class="btn btn-danger" @click.prevent="delRow('+id+')"><i class="fa fa-trash"></i></button></td>';
+
+      trow += '</tr>';
+      $("#body").append(trow);
     },
-    printme: function printme() {
-      this.$htmlToPaper('printMe');
+    delRow: function delRow(e) {
+      $("#row" + e).remove();
+    },
+    updateUser: function updateUser() {
+      var options = {
+        specs: ['fullscreen=yes', 'titlebar=yes', 'scrollbars=yes'],
+        styles: ['https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css']
+      };
+      var total = 0;
+      var totalItems = 0;
+      var totalQuantity = 0;
+
+      for (var i = 0; i <= id; i++) {
+        var name = $("#name" + i).val();
+        var quantity = $("#quantity" + i).val();
+        var price = $("#price" + i).val();
+        if (name == "" || quantity == "" || price == "") continue;else {
+          var prow = '<tr><td>' + name + '</td><td>' + quantity + '</td><td>' + price + '</td></tr>';
+          if (i == 0) $("#pbody").html(prow);else $("#pbody").append(prow);
+          totalItems = totalItems + 1;
+          totalQuantity = totalQuantity + parseInt(quantity);
+          total = total + parseInt(quantity) * parseInt(price);
+        }
+      }
+
+      var totalRow = '<tr><td>Items: ' + totalItems + '</td><td>Total Items: ' + totalQuantity + '</td><td>Total: ' + total + '</td></tr>';
+      if (totalItems == 0) $("#pbody").html(totalRow);else $("#pbody").append(totalRow);
+      this.$htmlToPaper('printMe', options);
     }
   }
 });
@@ -27977,41 +28044,132 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "form",
-      {
-        on: {
-          submit: function ($event) {
-            $event.preventDefault()
-            return _vm.updateUser()
-          },
+  return _c(
+    "form",
+    {
+      on: {
+        submit: function ($event) {
+          $event.preventDefault()
+          return _vm.updateUser()
         },
       },
-      [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-default",
-            attrs: { href: "", target: "_blank" },
-            on: {
-              click: function ($event) {
-                $event.preventDefault()
-                return _vm.printme.apply(null, arguments)
-              },
-            },
-          },
-          [_c("i", { staticClass: "fa fa-print" }), _vm._v(" Print")]
-        ),
-        _vm._v(" "),
-        _c("button", { staticClass: "btn btn-primary" }, [_vm._v("sa")]),
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", { attrs: { id: "printMe" } }, [_vm._v("aa")]),
-  ])
+    },
+    [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-body" }, [
+          _c("table", { staticClass: "table" }, [
+            _c("thead", { staticClass: "thead-dark" }, [
+              _c("tr", [
+                _c("th", [_vm._v("Product Name")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Quantity")]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Product Price")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.addRow()
+                        },
+                      },
+                    },
+                    [_c("i", { staticClass: "fa fa-plus" })]
+                  ),
+                ]),
+              ]),
+            ]),
+            _vm._v(" "),
+            _vm._m(0),
+          ]),
+          _vm._v(" "),
+          _vm._m(1),
+        ]),
+      ]),
+      _vm._v(" "),
+      _vm._m(2),
+    ]
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tbody", { attrs: { id: "body" } }, [
+      _c("tr", { attrs: { id: "row0" } }, [
+        _c("td", [
+          _c("input", {
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              name: "pname[]",
+              id: "name0",
+              placeholder: "Product Name",
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("td", [
+          _c("input", {
+            staticClass: "form-control",
+            attrs: {
+              type: "number",
+              name: "quantity[]",
+              id: "quantity0",
+              placeholder: "Quantity",
+            },
+          }),
+        ]),
+        _vm._v(" "),
+        _c("td", [
+          _c("input", {
+            staticClass: "form-control",
+            attrs: {
+              type: "number",
+              name: "price[]",
+              id: "price0",
+              placeholder: "Product Price",
+            },
+          }),
+        ]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "float-right" }, [
+      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Print")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "d-none", attrs: { id: "printMe" } }, [
+      _c("table", { staticClass: "table" }, [
+        _c("thead", { staticClass: "thead-dark" }, [
+          _c("tr", [
+            _c("th", [_vm._v("Product Name")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Quantity")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("Product Price")]),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("tbody", { attrs: { id: "pbody" } }),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 
